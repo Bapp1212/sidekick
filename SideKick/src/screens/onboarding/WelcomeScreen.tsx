@@ -1,56 +1,87 @@
-import { View, Text, Image } from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { CircleChevronRight as CircleChevronRightIcon } from "lucide-react-native";
 import { OnboardingStackParamList } from "../../navigation/OnboardingStack";
-import Screen from "../../components/Screen";
-import PrimaryButton from "../../components/PrimaryButton";
+import Wordmark from "../../../assets/wordmark.svg";
+
+// lucide-react-native's color prop maps to SVG stroke at runtime but its TS
+// types don't surface it through the SvgProps chain in this dependency set.
+const CircleChevronRight = CircleChevronRightIcon as React.ComponentType<{
+    size: number;
+    color: string;
+    strokeWidth: number;
+}>
+
+const SECONDARY = "#5b798a";
+const BG = "#f4ece4";
 
 type Props = NativeStackScreenProps<OnboardingStackParamList, "Welcome">;
 
 export default function WelcomeScreen({ navigation }: Props) {
     return (
-        <Screen>
-            <View className="flex-1 px-6 pt-16 pb-10">
-                {/* Logo / illustration area */}
-                <View className="flex-1 items-center justify-center gap-6">
-                    <View className="w-24 h-24 rounded-3xl bg-violet-600 items-center justify-center shadow-lg">
-                        <Text className="text-white text-5xl">🛡️</Text>
-                    </View>
-
-                    <View className="items-center gap-2">
-                        <Text className="text-4xl font-bold text-gray-900 tracking-tight">
-                            SideKick
-                        </Text>
-                        <Text className="text-base text-gray-500 text-center leading-6 px-8">
-                            Walk safer, learn faster — your trusted campus companion.
-                        </Text>
-                    </View>
-
-                    {/* Feature pills */}
-                    <View className="flex-row gap-2 mt-2 flex-wrap justify-center">
-                        {["🚶 Safe Walk", "💬 Q&A", "🎓 Campus"].map((f) => (
-                            <View
-                                key={f}
-                                className="px-4 py-1.5 bg-violet-50 rounded-full border border-violet-100"
-                            >
-                                <Text className="text-violet-700 text-sm font-medium">{f}</Text>
-                            </View>
-                        ))}
-                    </View>
+        <SafeAreaView style={styles.safe}>
+            <View style={styles.container}>
+                {/* Top content group */}
+                <View style={styles.content}>
+                    <Text style={styles.welcomeText}>Welcome to</Text>
+                    <Wordmark width={260} height={226} />
+                    <Text style={styles.subtitle}>
+                        A women-only platform for{"\n"}Durham University
+                        students.
+                    </Text>
                 </View>
 
-                {/* CTA buttons */}
-                <View className="gap-3">
-                    <PrimaryButton
-                        label="Get Started"
-                        onPress={() => navigation.navigate("WhatIsSideKick")}
+                {/* Bottom navigation button */}
+                <TouchableOpacity
+                    style={styles.chevronButton}
+                    onPress={() => navigation.navigate("WhatIsSideKick")}
+                    activeOpacity={0.7}
+                >
+                    <CircleChevronRight
+                        size={80}
+                        color={SECONDARY}
+                        strokeWidth={1.5}
                     />
-                    <PrimaryButton
-                        label="I already have an account"
-                        onPress={() => navigation.navigate("Register")}
-                        style={{ backgroundColor: "transparent", borderWidth: 1.5, borderColor: "#111" }}
-                    />
-                </View>
+                </TouchableOpacity>
             </View>
-        </Screen>
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    safe: {
+        flex: 1,
+        backgroundColor: BG,
+    },
+    container: {
+        flex: 1,
+        alignItems: "center",
+        paddingTop: 56,
+        paddingHorizontal: 36,
+        paddingBottom: 40,
+        justifyContent: "space-between",
+    },
+    content: {
+        alignItems: "center",
+        gap: 46,
+    },
+    welcomeText: {
+        fontFamily: "Georgia-Italic",
+        fontSize: 48,
+        color: SECONDARY,
+        lineHeight: 56,
+    },
+    subtitle: {
+        fontFamily: "Georgia-Italic",
+        fontSize: 24,
+        color: SECONDARY,
+        textAlign: "center",
+        lineHeight: 36,
+        maxWidth: 329,
+    },
+    chevronButton: {
+        alignItems: "center",
+    },
+});
