@@ -1,111 +1,152 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { MainTabsParamList } from "../../navigation/MainTabs";
+import { View, Text, ScrollView, Image } from "react-native";
+import {
+    Home,
+    MessageSquare,
+    Footprints,
+    UserRound,
+} from "lucide-react-native";
 import Screen from "../../components/Screen";
 
-type Props = BottomTabScreenProps<MainTabsParamList, "Home">;
+const imgCatWhisker =
+    "https://www.figma.com/api/mcp/asset/58d9705e-03c2-4111-aede-5188a6fbb8dc";
+const imgRacoon =
+    "https://www.figma.com/api/mcp/asset/8b1b7881-a35a-450c-8f7b-bf59c3c4ddd7";
 
-const QUICK_ACTIONS = [
-    {
-        icon: "💬",
-        label: "Q&A",
-        sublabel: "Ask & answer questions",
-        color: "bg-indigo-50",
-        border: "border-indigo-100",
-        text: "text-indigo-700",
-        tab: "QA" as keyof MainTabsParamList,
-    },
-    {
-        icon: "🚶‍♀️",
-        label: "Safe Walk",
-        sublabel: "Find a walk buddy",
-        color: "bg-violet-50",
-        border: "border-violet-100",
-        text: "text-violet-700",
-        tab: "SafeWalk" as keyof MainTabsParamList,
-    },
-];
+export default function HomeScreen() {
+    const stats = [
+        { number: "40", label: "questions\nanswered" },
+        { number: "12", label: "safe walk\ncompany" },
+        { number: "52", label: "helped in\ntotal" },
+    ];
 
-const UPDATES = [
-    { icon: "✅", text: "Your Q&A post got 3 helpful votes." },
-    { icon: "🚶", text: "A Safe Walk request is open near the library." },
-    { icon: "🎓", text: "New answers in the Exams category." },
-];
+    const activities = [
+        {
+            id: 1,
+            name: "Cat Whisker",
+            action: "rated you",
+            emoji: "😊",
+            detail: "from your safe walk session",
+            avatar: imgCatWhisker,
+        },
+        {
+            id: 2,
+            name: "Raged Raccoon",
+            action: "marked your answer as",
+            detail: "helpful",
+            avatar: imgRacoon,
+        },
+    ];
 
-export default function HomeScreen({ navigation }: Props) {
     return (
         <Screen>
             <ScrollView
-                className="flex-1"
-                contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 48, paddingBottom: 32 }}
-                showsVerticalScrollIndicator={false}
+                className="flex-1 bg-[#f4ece4]"
+                contentContainerClassName="pb-24"
             >
-                {/* Greeting */}
-                <View className="mb-8">
-                    <Text className="text-gray-400 text-sm">Good morning 👋</Text>
-                    <Text className="text-3xl font-bold text-gray-900 mt-0.5">
-                        Hey, SnazzyOwl42
+                {/* Header */}
+                <View className="px-8 pt-10">
+                    <Text className="text-4xl font-bold text-[#85817d] italic">
+                        Hi User!
                     </Text>
-                    <Text className="text-gray-400 text-sm mt-1">
-                        What would you like to do today?
+                    <Text className="text-sm text-[#5b798a] italic mt-4">
+                        Look at you!! Such a nice queen (✿◕‿◕✿)
                     </Text>
                 </View>
 
-                {/* Quick Actions */}
-                <Text className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">
-                    Quick Actions
-                </Text>
-                <View className="flex-row gap-3 mb-8">
-                    {QUICK_ACTIONS.map((a) => (
-                        <Pressable
-                            key={a.label}
-                            onPress={() => navigation.navigate(a.tab)}
-                            className={`flex-1 ${a.color} border ${a.border} rounded-2xl p-4`}
-                        >
-                            <Text className="text-3xl mb-2">{a.icon}</Text>
-                            <Text className={`font-semibold text-base ${a.text}`}>
-                                {a.label}
-                            </Text>
-                            <Text className="text-gray-400 text-xs mt-0.5">{a.sublabel}</Text>
-                        </Pressable>
-                    ))}
-                </View>
-
-                {/* Status card */}
-                <View className="bg-gray-900 rounded-2xl p-5 mb-8">
-                    <View className="flex-row items-center gap-2 mb-1">
-                        <View className="w-2 h-2 rounded-full bg-green-400" />
-                        <Text className="text-green-400 text-xs font-medium">
-                            Campus is active
-                        </Text>
+                {/* Stats Section */}
+                <View className="px-8 mt-10">
+                    <View className="flex-row justify-between items-center">
+                        {stats.map((stat, index) => (
+                            <View key={index} className="items-center flex-1">
+                                <Text className="text-4xl font-bold text-[#a48675] italic">
+                                    {stat.number}
+                                </Text>
+                                <Text className="text-xs text-[#85817d] text-center mt-2">
+                                    {stat.label}
+                                </Text>
+                            </View>
+                        ))}
                     </View>
-                    <Text className="text-white text-lg font-semibold">
-                        3 walk requests open right now
-                    </Text>
-                    <Pressable
-                        onPress={() => navigation.navigate("SafeWalk")}
-                        className="mt-3 bg-white/10 rounded-xl py-2 px-4 self-start"
-                    >
-                        <Text className="text-white text-sm font-medium">View requests →</Text>
-                    </Pressable>
                 </View>
 
-                {/* Updates */}
-                <Text className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">
-                    Recent Activity
-                </Text>
-                <View className="gap-2">
-                    {UPDATES.map((u) => (
+                {/* Recent Activities Title */}
+                <View className="px-8 mt-8">
+                    <Text className="text-sm text-[#5b798a] italic">
+                        Some of your recent activities
+                    </Text>
+                </View>
+
+                {/* Activities Section */}
+                <View className="px-8 mt-6 gap-4">
+                    {activities.map((activity) => (
                         <View
-                            key={u.text}
-                            className="flex-row items-start gap-3 bg-gray-50 rounded-xl p-4 border border-gray-100"
+                            key={activity.id}
+                            className="bg-[#e2e3e3] rounded-2xl p-4 flex-row items-center"
                         >
-                            <Text className="text-lg">{u.icon}</Text>
-                            <Text className="flex-1 text-gray-700 text-sm leading-5">{u.text}</Text>
+                            {/* Avatar */}
+                            <Image
+                                source={{ uri: activity.avatar }}
+                                className="w-10 h-10 rounded-full mr-4"
+                            />
+
+                            {/* Text Content */}
+                            <View className="flex-1">
+                                <Text className="text-sm font-bold text-[#85817d] italic">
+                                    {activity.name}
+                                    <Text className="font-normal not-italic">
+                                        {" "}
+                                        {activity.action}{" "}
+                                    </Text>
+                                    {activity.emoji && (
+                                        <Text>{activity.emoji}</Text>
+                                    )}
+                                    <Text className="font-normal not-italic">
+                                        {" "}
+                                        {activity.detail}
+                                    </Text>
+                                </Text>
+                            </View>
                         </View>
                     ))}
                 </View>
             </ScrollView>
+
+            {/* Bottom Navigation */}
+            <View className="absolute bottom-0 left-0 right-0 bg-[#f4ece4] border-t border-gray-200">
+                <View className="flex-row justify-around items-center h-24">
+                    <NavButton icon={Home} label="Home" active />
+                    <NavButton icon={MessageSquare} label="Q&A" />
+                    <NavButton icon={Footprints} label="Safe Walk" />
+                    <NavButton icon={UserRound} label="Profile" />
+                </View>
+            </View>
         </Screen>
+    );
+}
+
+function NavButton({
+    icon: Icon,
+    label,
+    active = false,
+}: {
+    icon: React.ComponentType<any>;
+    label: string;
+    active?: boolean;
+}) {
+    return (
+        <View className="items-center justify-center">
+            <View
+                className={`w-16 h-16 rounded-full items-center justify-center ${
+                    active ? "bg-[#b9c8ca]" : "bg-white"
+                }`}
+            >
+                <Icon
+                    size={24}
+                    color={active ? "#fff" : "#85817d"}
+                    strokeWidth={1.5}
+                />
+            </View>
+            <Text className="text-xs text-[#85817d] mt-1">{label}</Text>
+        </View>
     );
 }
