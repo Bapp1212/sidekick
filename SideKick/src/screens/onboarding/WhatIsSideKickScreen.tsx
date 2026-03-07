@@ -1,91 +1,190 @@
-import { View, Text, ScrollView } from "react-native";
+import React from "react";
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    ScrollView,
+    StyleSheet,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+    MessagesSquare,
+    Footprints,
+    HeartHandshake,
+    CircleChevronRight as CircleChevronRightIcon,
+} from "lucide-react-native";
 import { OnboardingStackParamList } from "../../navigation/OnboardingStack";
-import Screen from "../../components/Screen";
-import PrimaryButton from "../../components/PrimaryButton";
+
+// See WelcomeScreen for context on this cast
+const CircleChevronRight = CircleChevronRightIcon as React.ComponentType<{
+    size: number;
+    color: string;
+    strokeWidth: number;
+}>;
+const Icon = (
+    Component: React.ComponentType<{
+        size: number;
+        color: string;
+        strokeWidth: number;
+    }>
+) =>
+    function LucideIcon() {
+        return <Component size={75} color="#85817d" strokeWidth={1.25} />;
+    };
+
+const MessagesSquareIcon = Icon(
+    MessagesSquare as React.ComponentType<{
+        size: number;
+        color: string;
+        strokeWidth: number;
+    }>
+);
+const FootprintsIcon = Icon(
+    Footprints as React.ComponentType<{
+        size: number;
+        color: string;
+        strokeWidth: number;
+    }>
+);
+const HeartHandshakeIcon = Icon(
+    HeartHandshake as React.ComponentType<{
+        size: number;
+        color: string;
+        strokeWidth: number;
+    }>
+);
+
+const PRIMARY = "#85817d";
+const SECONDARY = "#5b798a";
+const BG = "#f4ece4";
 
 type Props = NativeStackScreenProps<OnboardingStackParamList, "WhatIsSideKick">;
 
-const FEATURES = [
-    {
-        icon: "🚶‍♀️",
-        title: "Safe Walk",
-        description:
-            "Match with a verified fellow student walking the same route. Confirm each other's identity using a one-time PIN, then walk together with confidence.",
-    },
-    {
-        icon: "💬",
-        title: "Trusted Q&A",
-        description:
-            "Get fast, reliable answers from students who've been there — modules, admin hassles, careers, campus life.",
-    },
-    {
-        icon: "🎓",
-        title: "Campus-Only Access",
-        description:
-            "Only verified university email addresses can join. Your nickname shields your real identity — we never show your name.",
-    },
-    {
-        icon: "🔒",
-        title: "Privacy First",
-        description:
-            "No real names. No photos. No strangers from outside campus. Just a trusted community of students.",
-    },
-];
+type FeatureRowProps = {
+    icon: React.ReactNode;
+    title: string;
+    description: string;
+    iconSide: "left" | "right";
+};
+
+function FeatureRow({ icon, title, description, iconSide }: FeatureRowProps) {
+    const textAlign = iconSide === "left" ? "right" : "left";
+    return (
+        <View style={styles.row}>
+            {iconSide === "left" && <View style={styles.iconBox}>{icon}</View>}
+            <View style={[styles.textBox, { alignItems: iconSide === "left" ? "flex-end" : "flex-start" }]}>
+                <Text style={[styles.featureTitle, { textAlign }]}>{title}</Text>
+                <Text style={[styles.featureDesc, { textAlign }]}>{description}</Text>
+            </View>
+            {iconSide === "right" && <View style={styles.iconBox}>{icon}</View>}
+        </View>
+    );
+}
 
 export default function WhatIsSideKickScreen({ navigation }: Props) {
     return (
-        <Screen>
+        <SafeAreaView style={styles.safe}>
             <ScrollView
-                className="flex-1"
-                contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 56, paddingBottom: 32 }}
+                contentContainerStyle={styles.container}
                 showsVerticalScrollIndicator={false}
             >
-                {/* Header */}
-                <View className="mb-8">
-                    <Text className="text-3xl font-bold text-gray-900 leading-tight">
-                        What is{"\n"}SideKick?
-                    </Text>
-                    <Text className="text-gray-500 text-base mt-2">
-                        Your campus safety &amp; support network.
-                    </Text>
-                </View>
-
-                {/* Feature cards */}
-                <View className="gap-4 mb-10">
-                    {FEATURES.map((f) => (
-                        <View
-                            key={f.title}
-                            className="bg-gray-50 rounded-2xl p-5 border border-gray-100"
-                        >
-                            <View className="flex-row items-center gap-3 mb-2">
-                                <View className="w-10 h-10 rounded-xl bg-violet-100 items-center justify-center">
-                                    <Text className="text-xl">{f.icon}</Text>
-                                </View>
-                                <Text className="text-gray-900 font-semibold text-base">
-                                    {f.title}
-                                </Text>
-                            </View>
-                            <Text className="text-gray-500 text-sm leading-5">
-                                {f.description}
-                            </Text>
-                        </View>
-                    ))}
-                </View>
-
-                {/* CTA */}
-                <PrimaryButton
-                    label="Next — Create Account"
-                    onPress={() => navigation.navigate("Register")}
-                />
-
-                <Text
-                    className="text-center text-gray-400 text-sm mt-4"
-                    onPress={() => navigation.goBack()}
-                >
-                    ← Back
+                {/* Heading */}
+                <Text style={styles.heading}>
+                    <Text style={styles.headingRegular}>{"What is "}</Text>
+                    <Text style={styles.headingBold}>{"SideKick"}</Text>
+                    <Text style={styles.headingRegular}>{"?"}</Text>
                 </Text>
+
+                {/* Feature rows */}
+                <View style={styles.features}>
+                    <FeatureRow
+                        iconSide="left"
+                        icon={<MessagesSquareIcon />}
+                        title="Quick Q&A"
+                        description="Get guidance for your assignment, study, or future plans from your peers"
+                    />
+                    <FeatureRow
+                        iconSide="right"
+                        icon={<FootprintsIcon />}
+                        title="Safe Walk"
+                        description="Quick match with another student to walk together"
+                    />
+                    <FeatureRow
+                        iconSide="left"
+                        icon={<HeartHandshakeIcon />}
+                        title="For & by women"
+                        description="We believe SideKick can be the space that brings women together to accelerate and inspire each other."
+                    />
+                </View>
+
+                {/* Next button */}
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Register")}
+                    activeOpacity={0.7}
+                >
+                    <CircleChevronRight size={80} color={SECONDARY} strokeWidth={1.5} />
+                </TouchableOpacity>
             </ScrollView>
-        </Screen>
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    safe: {
+        flex: 1,
+        backgroundColor: BG,
+    },
+    container: {
+        alignItems: "center",
+        paddingTop: 94,
+        paddingHorizontal: 24,
+        paddingBottom: 60,
+        gap: 59,
+    },
+    heading: {
+        alignSelf: "flex-start",
+        fontSize: 40,
+        lineHeight: 48,
+    },
+    headingRegular: {
+        fontFamily: "Georgia-Italic",
+        fontSize: 40,
+        color: SECONDARY,
+    },
+    headingBold: {
+        fontFamily: "Georgia-BoldItalic",
+        fontSize: 40,
+        color: PRIMARY,
+    },
+    features: {
+        width: "100%",
+        gap: 40,
+    },
+    row: {
+        flexDirection: "row",
+        alignItems: "flex-start",
+        gap: 16,
+        width: "100%",
+    },
+    iconBox: {
+        width: 75,
+        height: 75,
+        marginTop: 10,
+    },
+    textBox: {
+        flex: 1,
+        gap: 4,
+    },
+    featureTitle: {
+        fontFamily: "Georgia-BoldItalic",
+        fontSize: 24,
+        color: PRIMARY,
+    },
+    featureDesc: {
+        fontFamily: "Georgia-Italic",
+        fontSize: 16,
+        color: PRIMARY,
+        lineHeight: 22,
+    },
+});
