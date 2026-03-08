@@ -6,6 +6,8 @@
 
 ![SideKick](https://github.com/user-attachments/assets/d75db554-f622-47e5-84fe-1a5dbbeb0a43)
 
+> Check the video [here](https://youtu.be/xk5NcpcYS98)
+
 ---
 
 ## 🎯 Overview
