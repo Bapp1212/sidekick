@@ -4,9 +4,13 @@
   <p><em>Built for Durham University students, by women for women</em></p>
 </div>
 
-![SideKick](https://github.com/user-attachments/assets/d75db554-f622-47e5-84fe-1a5dbbeb0a43)
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/d75db554-f622-47e5-84fe-1a5dbbeb0a43" alt="SideKick">
+</div>
 
 > Check the video [here](https://youtu.be/xk5NcpcYS98)
+
+<div align="center"><em>SideKick was awarded with <strong>[MLH] Best Hack Built with Google Antigravity</strong> at the <a href="https://duwithacks2026.devpost.com/">DUWiTHacks 2026</a> hackathon!<br />We thank DUWiT for organising this hackathon, the organisers and volunteers who took care of us throughout the event, and <a href="https://mlh.io/">Major League Hacking</a> for giving us this challenge and presenting us this award.💖💖</em></div>
 
 ---
 
