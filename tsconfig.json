@@ -1,6 +1,16 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-native",
+    "lib": ["DOM", "ESNext"],
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "strict": true
   },
   "include": [
@@ -8,5 +18,11 @@
     "**/*.tsx",
     ".expo/types/**/*.d.ts",
     "nativewind-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
   ]
 }
