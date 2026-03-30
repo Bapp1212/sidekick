@@ -44,4 +44,7 @@ SideKick/ios
 SideKick/android
 
 # Android Studio/JetBrains
-.idea
+.idea/
+
+# VSCode
+.vscode/
