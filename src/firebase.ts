@@ -11,7 +11,7 @@ const firebaseConfig = {
     storageBucket: "sidekick-91414.firebasestorage.app",
     messagingSenderId: "292534333717",
     appId: "1:292534333717:web:78048261f0829f79a3b91c",
-    measurementId: "G-7VY6BC71CC"
+    measurementId: "G-7VY6BC71CC",
 };
 
 // Initialize Firebase
