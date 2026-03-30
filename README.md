@@ -121,12 +121,15 @@ SideKick provides a **verified, anonymous, and safe** platform with three core f
 - [Expo CLI](https://docs.expo.dev/more/expo-cli/)
 - [Expo Go](https://expo.dev/go) (or an iOS/Android simulator)
 
+> [!IMPORTANT]
+> [Expo SDK 55](https://expo.dev/changelog/sdk-55) was introduced in February 25, 2026, however SideKick uses **SDK 54** as that was the most updated version on [Google Play](https://play.google.com/store/apps/details?id=host.exp.exponent) and [App Store](https://apps.apple.com/gb/app/expo-go/id982107779) when we started developing (unlike Expo Go's screenshots saying they can support multiple SDKs in the same version of the Expo Go app, that wasn't the case for us).
+
 ### Steps
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Bapp1212/sidekick.git
-   cd sidekick/SideKick
+   cd sidekick
    ```
 
 2. **Install dependencies**
