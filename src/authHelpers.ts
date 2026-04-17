@@ -46,8 +46,14 @@ export function isUniversityEmail(email: string): boolean {
 // ─── Nickname Generator ───────────────────────────────────────────────────────
 
 function generateNickname(): string {
-    const adjectives = ["Happy", "Cozy", "Brave", "Sunny", "Swift", "Calm", "Bright", "Kind"];
-    const animals = ["Panda", "Fox", "Owl", "Rabbit", "Dolphin", "Koala", "Penguin", "Otter"];
+    const adjectives = [
+        "Happy", "Cozy", "Brave", "Sunny",
+        "Swift", "Calm", "Bright", "Kind",
+    ];
+    const animals = [
+        "Panda", "Fox", "Owl", "Rabbit",
+        "Dolphin", "Koala", "Penguin", "Otter",
+    ];
     const number = Math.floor(Math.random() * 100);
     const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
     const animal = animals[Math.floor(Math.random() * animals.length)];
@@ -84,6 +90,12 @@ export async function registerUser(email: string, password: string): Promise<Use
     return user;
 }
 
+/** Alias for registerUser — kept for backward compatibility. */
+export async function signUp(email: string, password: string) {
+    const user = await registerUser(email, password);
+    return { user, nickname: generateNickname() };
+}
+
 // ─── Login ────────────────────────────────────────────────────────────────────
 
 /**
@@ -101,6 +113,11 @@ export async function loginUser(email: string, password: string): Promise<User> 
         password
     );
     return user;
+}
+
+/** Alias for loginUser — kept for backward compatibility. */
+export async function signIn(email: string, password: string): Promise<User> {
+    return loginUser(email, password);
 }
 
 // ─── General Auth Helpers ─────────────────────────────────────────────────────

@@ -8,16 +8,16 @@ functions/lib/
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
 # dependencies
-SideKick/node_modules/
+node_modules/
 
 # Expo
-SideKick/.expo/
-SideKick/dist/
-SideKick/web-build/
-SideKick/expo-env.d.ts
+.expo/
+dist/
+web-build/
+expo-env.d.ts
 
 # Native
-SideKick/.kotlin/
+.kotlin/
 *.orig.*
 *.jks
 *.p8
@@ -26,7 +26,7 @@ SideKick/.kotlin/
 *.mobileprovision
 
 # Metro
-SideKick/.metro-health-check*
+.metro-health-check*
 
 # debug
 npm-debug.*
@@ -34,7 +34,7 @@ yarn-debug.*
 yarn-error.*
 
 # macOS
-.DS_Store
+.DS_Store/
 *.pem
 
 # local env files
@@ -44,8 +44,11 @@ yarn-error.*
 *.tsbuildinfo
 
 # generated native folders
-SideKick/ios
-SideKick/android
+ios/
+android/
 
 # Android Studio/JetBrains
-.idea
+.idea/
+
+# VSCode
+.vscode/
