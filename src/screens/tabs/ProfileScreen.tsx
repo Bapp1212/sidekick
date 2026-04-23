@@ -5,9 +5,11 @@ import { auth, db } from "../../firebase";
 import { regenerateNickname } from "../../dbHelpers";
 import { logOut } from "../../authHelpers";
 import { doc, onSnapshot } from "firebase/firestore";
+import appJson from "../../../app.json";
 
 const SECONDARY = "#5b798a";
 const PRIMARY = "#85817d";
+const appVersion = appJson.expo.version;
 
 export default function ProfileScreen() {
     const [nickname, setNickname] = useState("...");
@@ -108,7 +110,7 @@ export default function ProfileScreen() {
                 <View style={styles.infoList}>
                     <View style={styles.infoRow}>
                         <Text style={styles.infoLabel}>Version</Text>
-                        <Text style={styles.infoValue}>1</Text>
+                        <Text style={styles.infoValue}>{appVersion}</Text>
                     </View>
                     <Pressable style={styles.infoRow}>
                         <Text style={styles.infoLabel}>Privacy Policy</Text>
